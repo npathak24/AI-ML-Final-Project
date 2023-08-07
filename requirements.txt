@@ -4,7 +4,6 @@ sklearn
 tflearn
 tensorflow
 nlkt
-nltk.download('punkt')
 pickle
 pandas
 numpy
