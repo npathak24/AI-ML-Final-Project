@@ -2,7 +2,6 @@ flask
 Flask
 sklearn
 tflearn
-tensorflow
 nlkt
 pickle
 pandas
