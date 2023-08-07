@@ -62,13 +62,6 @@ model = tflearn.DNN(net)
 model.fit(training, output, n_epoch=1000, batch_size=8, show_metric=True)
 model.save("model.tflearn")
 
-# Save words and labels to files
-with open('words.pkl', 'wb') as f:
-    pickle.dump(words, f)
-
-with open('labels.pkl', 'wb') as f:
-    pickle.dump(labels, f)
-
 def bag_of_words(s, words):
     bag = [0 for _ in range(len(words))]
     s_words = nltk.word_tokenize(s)
@@ -102,4 +95,10 @@ def chat():
                     color_index = i % len(colors)
                     print(f'\033[1;{colors[color_index]}m {response_list[i]:<12s}\n')
 
-chat()
+# Save words and labels to files
+with open('words.pkl', 'wb') as f:
+    pickle.dump(words, f)
+
+with open('labels.pkl', 'wb') as f:
+    pickle.dump(labels, f)
+
