@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-image: url('/static/background1.jpg');
+            background-size: cover;
+        }
+        #chat-container {
+            text-align: center;
+            width: 80%;
+            max-width: 400px;
+            border: 1px solid #ddd;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+            background-color: rgba(255, 255, 255, 0.9);
+        }
+        #chat-box {
+            max-height: 300px;
+            overflow-y: auto;
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+        }
+        #user-input {
+            width: 80%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-right: 10px;
+        }
+        #send-btn {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div id="chat-container">
+        <h1>Welcome to our Health Advisory System</h1>
+        <h2>Chat with our virtual assistant</h2>
+        <div id="chat-box"></div>
+        <div style="display: flex;">
+            <input type="text" id="user-input" placeholder="Type here...">
+            <button id="send-btn">Send</button>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function () {
+            var chatBox = $('#chat-box');
+
+            function addBotResponse(response) {
+                chatBox.append('<div class="response-bot">' + response + '</div><br>');
+            }
+
+            function addUserMessage(message) {
+                chatBox.append('<div class="message-user">' + message + '</div><br>');
+            }
+
+            function scrollToBottom() {
+                chatBox.scrollTop(chatBox[0].scrollHeight);
+            }
+
+            $('#send-btn').click(function () {
+                var userInput = $('#user-input').val();
+                if (userInput !== '') {
+                    addUserMessage(userInput);
+                    scrollToBottom();
+                    $('#user-input').val('');
+
+                    $.ajax({
+                        type: 'POST',
+                        url: '/get_response',
+                        contentType: 'application/json',
+                        data: JSON.stringify({ 'user_input': userInput }),
+                        success: function (response) {
+                            addBotResponse(response.response);
+                            scrollToBottom();
+                        }
+                    });
+                }
+            });
+
+            $('#user-input').keydown(function (e) {
+                if (e.keyCode === 13) { // Enter key
+                    $('#send-btn').click();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
