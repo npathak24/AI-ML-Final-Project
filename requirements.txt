@@ -6,3 +6,4 @@ tensorflow
 pandas
 numpy
 matplotlib
+gunicorn
