@@ -1,6 +1,6 @@
 flask
 Flask
-sklearn
+scikit-learn
 tflearn
 tensorflow
 nlkt
