@@ -2,7 +2,6 @@ flask
 Flask
 scikit-learn
 tflearn
---user -U nltk
 tensorflow
 pandas
 numpy
