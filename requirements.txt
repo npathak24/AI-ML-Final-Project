@@ -3,9 +3,6 @@ Flask
 scikit-learn
 tflearn
 tensorflow
-nlkt
-pickle
 pandas
 numpy
-json
 matplotlib
