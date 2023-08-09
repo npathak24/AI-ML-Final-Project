@@ -1,6 +1,5 @@
 from flask import Flask, render_template, request, jsonify
 import nltk
-nltk.download('punkt')
 from nltk.stem.lancaster import LancasterStemmer
 import numpy as np
 import tflearn
@@ -9,6 +8,12 @@ import json
 import pickle
 
 app = Flask(__name__)
+
+# Make sure to download the required NLTK resources
+nltk.download('punkt')
+nltk.download('wordnet')
+nltk.download('stopwords')
+nltk.download('omw-1.4')
 
 stemmer = LancasterStemmer()
 model = None  # Will be initialized during app startup
