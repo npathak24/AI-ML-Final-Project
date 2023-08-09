@@ -27,20 +27,20 @@ with open('intents.json') as f:
 if model is None:
     tf.compat.v1.reset_default_graph()
 
-    # Load the preprocessed words and labels
-    with open('words.pkl', 'rb') as f:
-        words = pickle.load(f)
+# Load the preprocessed words and labels
+with open('words.pkl', 'rb') as f:
+    words = pickle.load(f)
 
-    with open('labels.pkl', 'rb') as f:
-        labels = pickle.load(f)
+with open('labels.pkl', 'rb') as f:
+    labels = pickle.load(f)
 
-    net = tflearn.input_data(shape=[None, len(words)])
-    net = tflearn.fully_connected(net, 8)
-    net = tflearn.fully_connected(net, len(labels), activation="softmax")
-    net = tflearn.regression(net)
+net = tflearn.input_data(shape=[None, len(words)])
+net = tflearn.fully_connected(net, 8)
+net = tflearn.fully_connected(net, len(labels), activation="softmax")
+net = tflearn.regression(net)
 
-    model = tflearn.DNN(net)
-    model.load("model.tflearn")
+model = tflearn.DNN(net)
+model.load("model.tflearn")
 
 def bag_of_words(s, words):
     bag = [0 for _ in range(len(words))]
